@@ -113,3 +113,5 @@ popd
 
 
 %changelog
+* Wed Oct 11 2023 Fedaikin <fedaikin@bfroehler.info> - 6.5.1
+- Qt 6.5.1 HttpServer
