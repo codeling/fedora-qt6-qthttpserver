@@ -9,17 +9,24 @@
 ## END: Set by rpmautospec
 
 %global qt_module qthttpserver
+%global SHA256SUM0 f8fa2b5d1278d05c8841fe14d3a81c91196a126219d491562f7c179b5202dcac
 
-#global unstable 0
+#global unstable 1
 %if 0%{?unstable}
 %global prerelease rc2
 %endif
 
-%global examples 0
+# Currently not working - leads to build errors:
+# error: Installed (but unpackaged) file(s) found:
+#    /usr/lib/debug/usr/lib64/qt6/examples/httpserver/colorpalette/colorpaletteserver-6.5.2-1.fc38.x86_64.debug
+#    /usr/lib/debug/usr/lib64/qt6/examples/httpserver/simple/simple-6.5.2-1.fc38.x86_64.debug
+#    /usr/lib64/qt6/examples/httpserver/colorpalette/colorpaletteserver
+#    /usr/lib64/qt6/examples/httpserver/simple/simple
+#global examples 1
 
 Summary: Qt6 - httpserver component
 Name:    qt6-%{qt_module}
-Version: 6.5.1
+Version: 6.5.2
 Release: %autorelease
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -64,6 +71,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
+echo "%SHA256SUM0 %SOURCE0" | sha256sum -c -
 %autosetup -n %{qt_module}-everywhere-src-%{qt_version}%{?unstable:-%{prerelease}} -p1
 
 
@@ -113,5 +121,5 @@ popd
 
 
 %changelog
-* Wed Oct 11 2023 Fedaikin <fedaikin@bfroehler.info> - 6.5.1
-- Qt 6.5.1 HttpServer
+* Wed Oct 11 2023 Fedaikin <fedaikin@bfroehler.info> - 6.5.2
+- Qt 6.5.2 HttpServer
